@@ -11,9 +11,9 @@ import org.springframework.stereotype.Component;
 @Component("inst")
 @Scope("prototype")
 public class Instructor {
-    @Value("234")
+    @Value("#{T(java.lang.Math).abs(-40)}")
     private int id;
-    @Value("Nagaveda")
+    @Value("#{new String('Nagaveda').toUpperCase()}")
     private String name;
     @Value("#{courses}")
     private List<String> courses;
@@ -21,6 +21,17 @@ public class Instructor {
     @Autowired
     @Qualifier("prof")
     private Profile profile;
+
+    @Value("#{2+3 == 4}")
+    private boolean active;
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
 
     public Profile getProfile() {
         return profile;
@@ -56,7 +67,8 @@ public class Instructor {
 
     @Override
     public String toString() {
-        return "Instructor [courses=" + courses + ", id=" + id + ", name=" + name + ", profile=" + profile + "]";
+        return "Instructor [active=" + active + ", courses=" + courses + ", id=" + id + ", name=" + name + ", profile="
+                + profile + "]";
     }
 
 }
